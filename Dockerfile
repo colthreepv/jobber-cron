@@ -50,6 +50,23 @@ RUN export JOBBER_HOME=/tmp/jobber && \
       make && \
     rm -rf /var/cache/apk/* && rm -rf /tmp/* && rm -rf /var/log/*
 
+RUN apk add --update \
+      gpgme \
+      wget \
+      jq \
+      curl \
+      tar \
+      gzip \
+      zip \
+      unzip \
+      rsync \
+      git \
+      bash \
+      mercurial && \
+    rm -rf /var/cache/apk/* && rm -rf /tmp/* && rm -rf /var/log/*
+
+COPY notify.sh /notify.sh
+
 COPY docker-entrypoint.sh /opt/jobber/docker-entrypoint.sh
 ENTRYPOINT ["/bin/tini","--","/opt/jobber/docker-entrypoint.sh"]
 CMD ["jobberd"]

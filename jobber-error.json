@@ -1,0 +1,18 @@
+{  
+   "job":{  
+      "command":"/home/dylan/some_program",
+      "name":"MyHourlyJob",
+      "notifyOnError":true,
+      "notifyOnFailure":false,
+      "onError":"Stop",
+      "status":"Failed",
+      "time":"0 0 * * * *"
+   },
+   "startTime":"May 29 15:25:10 2017",
+   "stderr":"Some errors\n",
+   "stderr_base64":false,
+   "stdout":"Quotes: \"adf\"\n",
+   "stdout_base64":false,
+   "succeeded":false,
+   "user":"dylan"
+}

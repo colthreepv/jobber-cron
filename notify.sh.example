@@ -1,0 +1,28 @@
+#!/bin/bash
+set -o nounset
+set -e
+
+PAYLOAD=`cat`
+P_STDERR=`jq .stderr <<< $PAYLOAD`
+# Remove first and last character, they are always double-quotes, ex "string here"
+P_STDERR="${P_STDERR:1:${#P_STDERR}-2}"
+P_STDOUT=`jq .stdout <<< $PAYLOAD`
+# Remove first and last character
+P_STDOUT="${P_STDOUT:1:${#P_STDOUT}-2}"
+
+WHICH=PCM
+
+BOTID=PUT_BOT_ID_HERE
+TOKEN=PUT_VALID_TOKEN_HERE
+
+# echo $PAYLOAD
+echo $P_STDERR
+echo $P_STDOUT
+
+ curl "https://api.telegram.org/$BOTID:$TOKEN/sendMessage" \
+ -H 'content-type: application/json' \
+ -d "{
+\"chat_id\": 67715743,
+\"parse_mode\": \"html\",
+\"text\": \"<b>${WHICH}</b> deploy script error\n<b>stderr:</b><pre>${P_STDERR}</pre><b>stdout:</b><pre>${P_STDOUT}</pre>\"
+}"
